@@ -6,22 +6,22 @@ namespace MovieApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MovieController : ControllerBase
+    public class TicketController : ControllerBase
     {
-        private readonly IMovieService _service;
+        private readonly ITicketService _service;
 
-        public MovieController(IMovieService service)
+        public TicketController(ITicketService service)
         {
             _service = service;
         }
 
-        [HttpPost("postMovie")]
-        public IActionResult PostMovie([FromBody] Movie request)
+        [HttpPost("postTicket")]
+        public IActionResult PostTicket([FromBody] Ticket request)
         {
             try
             {
                 _service.Add(request);
-                return Ok("Movie added successfully.");
+                return Ok("Ticket added successfully.");
             }
             catch (Exception ex)
             {
@@ -29,13 +29,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putMovie")]
-        public IActionResult PutMovie([FromBody] Movie request)
+        [HttpPut("putTicket")]
+        public IActionResult PutTicket([FromBody] Ticket request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("Movie updated successfully.");
+                return Ok("Ticket updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +43,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteMovie")]
-        public IActionResult DeleteMovie(int id)
+        [HttpDelete("deleteTicket")]
+        public IActionResult DeleteTicket(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("Movie deleted successfully.");
+                return Ok("Ticket deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +57,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getMovie")]
-        public IActionResult GetMovie(int id)
+        [HttpGet("getTicket")]
+        public IActionResult GetTicket(int id)
         {
             try
             {
                 var response = _service.Get(id);
                 if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Movie not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Ticket not found." });
 
                 return Ok(response);
             }
@@ -74,14 +74,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllMovies")]
-        public IActionResult GetAllMovies()
+        [HttpGet("getAllTickets")]
+        public IActionResult GetAllTickets()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Movie not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Ticket not found." });
 
                 return Ok(response);
             }

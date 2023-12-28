@@ -6,22 +6,22 @@ namespace MovieApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MovieController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly IMovieService _service;
+        private readonly ICustomerService _service;
 
-        public MovieController(IMovieService service)
+        public CustomerController(ICustomerService service)
         {
             _service = service;
         }
 
-        [HttpPost("postMovie")]
-        public IActionResult PostMovie([FromBody] Movie request)
+        [HttpPost("postCustomer")]
+        public IActionResult PostCustomer([FromBody] MyCustomer request)
         {
             try
             {
                 _service.Add(request);
-                return Ok("Movie added successfully.");
+                return Ok("Customer added successfully.");
             }
             catch (Exception ex)
             {
@@ -29,13 +29,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putMovie")]
-        public IActionResult PutMovie([FromBody] Movie request)
+        [HttpPut("putCustomer")]
+        public IActionResult PutCustomer([FromBody] MyCustomer request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("Movie updated successfully.");
+                return Ok("Customer updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +43,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteMovie")]
-        public IActionResult DeleteMovie(int id)
+        [HttpDelete("deleteCustomer")]
+        public IActionResult DeleteCustomer(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("Movie deleted successfully.");
+                return Ok("Customer deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +57,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getMovie")]
-        public IActionResult GetMovie(int id)
+        [HttpGet("getCustomer")]
+        public IActionResult GetCustomer(int id)
         {
             try
             {
                 var response = _service.Get(id);
                 if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Movie not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Customer not found." });
 
                 return Ok(response);
             }
@@ -74,14 +74,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllMovies")]
-        public IActionResult GetAllMovies()
+        [HttpGet("getAllCustomers")]
+        public IActionResult GetAllCustomers()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Movie not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Customer not found." });
 
                 return Ok(response);
             }
