@@ -15,13 +15,12 @@ namespace MovieApp.Controllers
             _service = service;
         }
 
-        [HttpPost("postScreenTier")]
-        public IActionResult PostScreenTier([FromBody] ScreenTier request)
+        [HttpPost]
+        public IActionResult Post([FromBody] ScreenTier request)
         {
             try
             {
-                _service.Add(request);
-                return Ok("ScreenTier added successfully.");
+                return Ok(_service.Add(request));
             }
             catch (Exception ex)
             {
@@ -29,13 +28,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putScreenTier")]
-        public IActionResult PutScreenTier([FromBody] ScreenTier request)
+        [HttpPut]
+        public IActionResult Put([FromBody] ScreenTier request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("ScreenTier updated successfully.");
+                return Ok("Record updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +42,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteScreenTier")]
-        public IActionResult DeleteScreenTier(int id)
+        [HttpDelete]
+        public IActionResult Delete(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("ScreenTier deleted successfully.");
+                return Ok("Record deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +56,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getScreenTier")]
-        public IActionResult GetScreenTier(int id)
+        [HttpGet]
+        public IActionResult Get(int id)
         {
             try
             {
                 var response = _service.Get(id);
-                if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"ScreenTier not found." });
+                if (response == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }
@@ -74,14 +73,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllScreenTiers")]
-        public IActionResult GetAllScreenTiers()
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"ScreenTier not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }

@@ -15,13 +15,12 @@ namespace MovieApp.Controllers
             _service = service;
         }
 
-        [HttpPost("postShowing")]
-        public IActionResult PostShowing([FromBody] Showing request)
+        [HttpPost]
+        public IActionResult Post([FromBody] Showing request)
         {
             try
             {
-                _service.Add(request);
-                return Ok("Showing added successfully.");
+                return Ok(_service.Add(request));
             }
             catch (Exception ex)
             {
@@ -29,13 +28,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putShowing")]
-        public IActionResult PutShowing([FromBody] Showing request)
+        [HttpPut]
+        public IActionResult Put([FromBody] Showing request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("Showing updated successfully.");
+                return Ok("Record updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +42,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteShowing")]
-        public IActionResult DeleteShowing(int id)
+        [HttpDelete]
+        public IActionResult Delete(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("Showing deleted successfully.");
+                return Ok("Record deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +56,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getShowing")]
-        public IActionResult GetShowing(int id)
+        [HttpGet]
+        public IActionResult Get(int id)
         {
             try
             {
                 var response = _service.Get(id);
-                if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Showing not found." });
+                if (response == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }
@@ -74,14 +73,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllShowings")]
-        public IActionResult GetAllShowings()
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Showing not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }

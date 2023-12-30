@@ -15,13 +15,12 @@ namespace MovieApp.Controllers
             _service = service;
         }
 
-        [HttpPost("postStaff")]
-        public IActionResult PostStaff([FromBody] Staff request)
+        [HttpPost]
+        public IActionResult Post([FromBody] Staff request)
         {
             try
             {
-                _service.Add(request);
-                return Ok("Staff added successfully.");
+                return Ok(_service.Add(request));
             }
             catch (Exception ex)
             {
@@ -29,13 +28,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putStaff")]
-        public IActionResult PutStaff([FromBody] Staff request)
+        [HttpPut]
+        public IActionResult Put([FromBody] Staff request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("Staff updated successfully.");
+                return Ok("Record updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +42,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteStaff")]
-        public IActionResult DeleteStaff(int id)
+        [HttpDelete]
+        public IActionResult Delete(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("Staff deleted successfully.");
+                return Ok("Record deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +56,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getStaff")]
-        public IActionResult GetStaff(int id)
+        [HttpGet]
+        public IActionResult Get(int id)
         {
             try
             {
                 var response = _service.Get(id);
-                if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Staff not found." });
+                if (response == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }
@@ -74,14 +73,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllStaffs")]
-        public IActionResult GetAllStaffs()
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Staff not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }

@@ -15,13 +15,12 @@ namespace MovieApp.Controllers
             _service = service;
         }
 
-        [HttpPost("postStaffCredential")]
-        public IActionResult PostStaffCredential([FromBody] StaffCredential request)
+        [HttpPost]
+        public IActionResult Post([FromBody] StaffCredential request)
         {
             try
             {
-                _service.Add(request);
-                return Ok("StaffCredential added successfully.");
+                return Ok(_service.Add(request));
             }
             catch (Exception ex)
             {
@@ -29,13 +28,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putStaffCredential")]
-        public IActionResult PutStaffCredential([FromBody] StaffCredential request)
+        [HttpPut]
+        public IActionResult Put([FromBody] StaffCredential request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("StaffCredential updated successfully.");
+                return Ok("Record updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +42,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteStaffCredential")]
-        public IActionResult DeleteStaffCredential(int id)
+        [HttpDelete]
+        public IActionResult Delete(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("StaffCredential deleted successfully.");
+                return Ok("Record deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +56,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getStaffCredential")]
-        public IActionResult GetStaffCredential(int id)
+        [HttpGet]
+        public IActionResult Get(int id)
         {
             try
             {
                 var response = _service.Get(id);
-                if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"StaffCredential not found." });
+                if (response == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }
@@ -74,14 +73,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllStaffCredentials")]
-        public IActionResult GetAllStaffCredentials()
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"StaffCredential not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }

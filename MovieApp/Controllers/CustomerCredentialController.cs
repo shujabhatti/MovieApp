@@ -15,13 +15,12 @@ namespace MovieApp.Controllers
             _service = service;
         }
 
-        [HttpPost("postCustomerCred")]
-        public IActionResult PostCustomerCred([FromBody] CustomerCred request)
+        [HttpPost]
+        public IActionResult Post([FromBody] CustomerCred request)
         {
             try
             {
-                _service.Add(request);
-                return Ok("CustomerCred added successfully.");
+                return Ok(_service.Add(request));
             }
             catch (Exception ex)
             {
@@ -29,13 +28,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpPut("putCustomerCred")]
-        public IActionResult PutCustomerCred([FromBody] CustomerCred request)
+        [HttpPut]
+        public IActionResult Put([FromBody] CustomerCred request)
         {
             try
             {
                 _service.Update(request);
-                return Ok("CustomerCred updated successfully.");
+                return Ok("Record updated successfully.");
             }
             catch (Exception ex)
             {
@@ -43,13 +42,13 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpDelete("deleteCustomerCred")]
-        public IActionResult DeleteCustomerCred(int id)
+        [HttpDelete]
+        public IActionResult Delete(int id)
         {
             try
             {
                 _service.Delete(id);
-                return Ok("CustomerCred deleted successfully.");
+                return Ok("Record deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -57,14 +56,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getCustomerCred")]
-        public IActionResult GetCustomerCred(int id)
+        [HttpGet]
+        public IActionResult Get(int id)
         {
             try
             {
                 var response = _service.Get(id);
-                if(response == null) 
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"CustomerCred not found." });
+                if (response == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }
@@ -74,14 +73,14 @@ namespace MovieApp.Controllers
             }
         }
 
-        [HttpGet("getAllCustomerCreds")]
-        public IActionResult GetAllCustomerCreds()
+        [HttpGet("getAll")]
+        public IActionResult GetAll()
         {
             try
             {
                 var response = _service.GetAll();
                 if (response == null)
-                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"CustomerCred not found." });
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
 
                 return Ok(response);
             }
