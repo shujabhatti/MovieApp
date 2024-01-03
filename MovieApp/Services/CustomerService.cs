@@ -42,6 +42,16 @@ namespace MovieApp.Services
             var result = _context.MyCustomers.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.MyCustomers 
+                         select new GenericDropdown { 
+                             name = $"{item.customer_ID}", 
+                             value = item.name 
+                         };
+            return result.ToList();
+        }
     }
 
     public interface ICustomerService
@@ -51,5 +61,6 @@ namespace MovieApp.Services
         void Delete(int id);
         MyCustomer? Get(int id);
         List<MyCustomer> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }

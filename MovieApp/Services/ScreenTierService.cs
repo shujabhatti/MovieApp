@@ -42,6 +42,17 @@ namespace MovieApp.Services
             var result = _context.ScreenTiers.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.ScreenTiers
+                         select new GenericDropdown
+                         {
+                             name = $"{item.tier_ID}",
+                             value = $"{item.price}"
+                         };
+            return result.ToList();
+        }
     }
 
     public interface IScreenTierService
@@ -51,5 +62,6 @@ namespace MovieApp.Services
         void Delete(int id);
         ScreenTier? Get(int id);
         List<ScreenTier> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }

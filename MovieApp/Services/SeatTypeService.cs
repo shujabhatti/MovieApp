@@ -42,6 +42,17 @@ namespace MovieApp.Services
             var result = _context.SeatTypes.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.SeatTypes
+                         select new GenericDropdown
+                         {
+                             name = $"{item.type_ID}",
+                             value = item.name
+                         };
+            return result.ToList();
+        }
     }
 
     public interface ISeatTypeService
@@ -51,5 +62,6 @@ namespace MovieApp.Services
         void Delete(int id);
         SeatType? Get(int id);
         List<SeatType> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }

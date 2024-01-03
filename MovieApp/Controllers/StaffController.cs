@@ -89,5 +89,22 @@ namespace MovieApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"{ex.Message} >> {ex.StackTrace}" });
             }
         }
+
+        [HttpGet("getShortList")]
+        public IActionResult GetShortList()
+        {
+            try
+            {
+                var response = _service.GetShortList();
+                if (response == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, new { Message = $"Record not found." });
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"{ex.Message} >> {ex.StackTrace}" });
+            }
+        }
     }
 }

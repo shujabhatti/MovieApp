@@ -42,6 +42,17 @@ namespace MovieApp.Services
             var result = _context.Staffs.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.Staffs
+                         select new GenericDropdown
+                         {
+                             name = $"{item.staff_ID}",
+                             value = item.name
+                         };
+            return result.ToList();
+        }
     }
 
     public interface IStaffService
@@ -51,5 +62,6 @@ namespace MovieApp.Services
         void Delete(int id);
         Staff? Get(int id);
         List<Staff> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }

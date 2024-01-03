@@ -42,6 +42,17 @@ namespace MovieApp.Services
             var result = _context.Screens.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.Screens
+                         select new GenericDropdown
+                         {
+                             name = $"{item.screen_ID}",
+                             value = $"{item.sc_tier_ID} - {item.capacity}"
+                         };
+            return result.ToList();
+        }
     }
 
     public interface IScreenService
@@ -51,5 +62,6 @@ namespace MovieApp.Services
         void Delete(int id);
         Screen? Get(int id);
         List<Screen> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }

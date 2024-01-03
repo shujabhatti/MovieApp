@@ -42,6 +42,17 @@ namespace MovieApp.Services
             var result = _context.Tickets.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.Tickets
+                         select new GenericDropdown
+                         {
+                             name = $"{item.ticket_ID}",
+                             value = $"{item.customer_ID} - {item.showing_ID} - {item.seat_ID}"
+                         };
+            return result.ToList();
+        }
     }
 
     public interface ITicketService
@@ -51,5 +62,6 @@ namespace MovieApp.Services
         void Delete(int id);
         Ticket? Get(int id);
         List<Ticket> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }
