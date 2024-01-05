@@ -42,6 +42,17 @@ namespace MovieApp.Services
             var result = _context.Movies.ToList();
             return result;
         }
+
+        public List<GenericDropdown> GetShortList()
+        {
+            var result = from item in _context.Movies
+                         select new GenericDropdown
+                         {
+                             name = $"{item.movie_ID}",
+                             value = item.title
+                         };
+            return result.ToList();
+        }
     }
 
     public interface IMovieService
@@ -51,5 +62,6 @@ namespace MovieApp.Services
         void Delete(int id);
         Movie? Get(int id);
         List<Movie> GetAll();
+        List<GenericDropdown> GetShortList();
     }
 }
